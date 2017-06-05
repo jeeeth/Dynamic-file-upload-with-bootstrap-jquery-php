@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<!-- <script type="text/javascript" src="js/inputfile.js"> -->
+
+
+	<style media="screen">
+	.btn-bs-file{
+		position:relative;
+	}
+	.btn-bs-file input[type="file"]{
+		position: absolute;
+		top: -9999999;
+		filter: alpha(opacity=0);
+		opacity: 0;
+		width:0;
+		height:0;
+		outline: none;
+		cursor: inherit;
+		
+	}
+	</style>
+</head>
+
+<body>
+	<div class="container-fluid">
+		<div class="col-sm-4">
+
+		</div>
+		<div class="col-sm-4">
+			<form method="post" action="fileupload.php" enctype="multipart/form-data">
+				<div class="form-group">
+					<button type="button" class="btn btn-success" name="button" id="add">add</button>
+				</div>
+				<input type="hidden" class="form-control" name="txt_fcount" id="txt_fcount" value="1">
+				<div class="dymanic" id="dymanic">
+					<div class="row">
+						<div class="col-sm-6">
+							<div class="form-group">
+								<input type="text" class="form-control" name="txt_filename1" id="txt_filename1" placeholder="Name of the Document">
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-group">
+								<label class="btn-bs-file btn  btn-default">Browse
+									<input type="file" name="fl_doc1" id="fl_doc1">
+								</label>
+							</div>
+						</div>
+						<div class="col-sm-3">
+							<div class="form-group">
+								<button type="button"  class="btn btn-danger btn-remove" name="button"><span class="glyphicon glyphicon-minus"></span></button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-sm-2">
+					</div>
+					<div class="col-sm-4">
+						<input type="submit" class="form-control btn-primary" value="Upload" name="sub_file" placeholder="">
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+	<script>
+	$(document).ready(function(){
+		var id = 1;
+
+
+		$("#add").click(function(event) {
+			var showId = ++id;
+			$("#txt_fcount").val(showId);
+			// if (showId <=10) {
+			$(".dymanic").append('<div class="row"><div class="col-sm-6"><div class="form-group"><input type="text" class="form-control" name="txt_filename'+showId+'" id="txt_filename'+showId+'" placeholder="Name of the Document"></div></div><div class="col-sm-3"><div class="form-group"><label class="btn-bs-file btn  btn-default">Browse<input type="file" name="fl_doc'+showId+'" id="fl_doc'+showId+'"></label></div></div><div class="col-sm-2"><div class="form-group"><button type="button"  class="btn btn-danger btn-remove" name="button"><span class="glyphicon glyphicon-minus"></span></button></div></div></div>');
+			// }
+		});
+		$(document).on('click', '.btn-remove', function(e)
+		{
+			var showId = --id;
+			$("#txt_fcount").val(showId);
+
+			$(this).parents('.dymanic .row:first').remove();
+			e.preventDefault();
+			return false;
+		});
+	});
+	</script>
+</body>
+</html>
